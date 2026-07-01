@@ -1,3 +1,4 @@
+const https = require('https')
 const { createClient } = require('@supabase/supabase-js')
 
 async function notifyHarris({ full_name, email, url, what_building, city, knows_member, member_name }) {
@@ -49,24 +50,37 @@ async function notifyHarris({ full_name, email, url, what_building, city, knows_
 </body>
 </html>`
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
+  await new Promise((resolve, reject) => {
+    const payload = JSON.stringify({
       from: 'ROSTA <hello@onrosta.com>',
       to: ['harris@onrosta.com'],
       subject: `New ROSTA invite request from ${full_name}`,
       html,
-    }),
+    })
+    const req = https.request(
+      {
+        hostname: 'api.resend.com',
+        path: '/emails',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(payload),
+        },
+      },
+      (res) => {
+        let data = ''
+        res.on('data', chunk => { data += chunk })
+        res.on('end', () => {
+          if (res.statusCode >= 200 && res.statusCode < 300) resolve(data)
+          else reject(new Error(`Resend ${res.statusCode}: ${data}`))
+        })
+      },
+    )
+    req.on('error', reject)
+    req.write(payload)
+    req.end()
   })
-
-  if (!res.ok) {
-    const body = await res.text()
-    throw new Error(`Resend ${res.status}: ${body}`)
-  }
 }
 
 exports.handler = async (event) => {
