@@ -580,70 +580,36 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 }
 
 /* ── SECTION 5: FOUNDING MEMBERS ───────────────────────────────────────────── */
-/* TODO: Replace placeholder silhouettes with real member photos after consent is obtained.
-   Members known to be open to being featured: [Update this list as consent is gathered] */
-
-.members-header {
+/* ── SECTION 5: VOUCHED FOR (replaces founding members) ────────────────────── */
+.vouched-inner {
   text-align: center;
-  max-width: 560px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.vouched-copy {
+  max-width: 640px;
   margin: 0 auto 64px;
 }
-.members-subhead {
-  font-size: 17px;
-  color: var(--navy-60);
-  line-height: 1.6;
-  margin-top: 16px;
-}
-
-.members-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px 48px;
-}
-
-.member-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  text-align: center;
-}
-
-.member-avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.member-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.member-placeholder svg {
-  width: 52%;
-  height: 52%;
-  fill: rgba(245,242,238,0.7);
-}
-
-.member-name {
-  font-size: 14px;
-  font-weight: 600;
+.vouched-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(36px, 5.5vw, 64px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
   color: var(--navy);
-  line-height: 1.2;
+  margin-bottom: 24px;
 }
-.member-role {
-  font-size: 12px;
+.vouched-body {
+  font-size: 18px;
   font-weight: 400;
-  color: var(--body-grey);
-  margin-top: 2px;
+  color: rgba(15,27,60,0.7);
+  line-height: 1.6;
+}
+.vouched-graphic {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
 }
 
 /* ── SECTION 6: HOW TO GET IN ──────────────────────────────────────────────── */
@@ -753,11 +719,33 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 .modal-card {
   background: var(--warm-white);
   border-radius: var(--radius-lg);
-  padding: 48px;
   width: 100%;
   max-width: 480px;
+  max-height: min(85vh, 720px);
   position: relative;
   box-shadow: 0 32px 80px rgba(15,27,60,0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Scrollable content area (header + form fields) */
+.modal-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 40px 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Sticky footer with submit */
+.modal-footer {
+  flex-shrink: 0;
+  padding: 16px 40px 28px;
+  border-top: 1px solid var(--border);
+  background: var(--warm-white);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .modal-close {
@@ -856,6 +844,16 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   border-radius: var(--radius-sm);
 }
 
+.modal-cancel {
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy-60);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
 /* Modal success state */
 .modal-success {
   display: none;
@@ -900,8 +898,6 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   .feature-block { grid-template-columns: 1fr; gap: 40px; }
   .feature-block.reverse { direction: ltr; }
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-  .members-grid { gap: 32px 36px; }
-  .member-avatar { width: 80px; height: 80px; }
 }
 
 @media (max-width: 767px) {
@@ -913,7 +909,8 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   .orbit-portrait:nth-child(10) { display: none; }
   .feature-block { margin-bottom: 64px; }
   .browser-img { height: 240px; }
-  .modal-card { padding: 32px 24px; }
+  .modal-scroll { padding: 24px 24px 16px; }
+  .modal-footer { padding: 12px 24px 24px; }
   .get-in-inner { padding: 0; }
   .footer-inner { padding: 48px 24px; }
   .hero-eyebrow { font-size: 13px; }
@@ -980,7 +977,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 
 <!-- ── SECTION 2: THE PROBLEM ────────────────────────────────────────────────── -->
 <div class="section-wrap">
-  <div class="section" id="problem">
+  <div class="section" id="problem" style="padding-bottom:60px">
     <div class="problem-inner">
       <span class="eyebrow reveal">The problem</span>
       <h2 class="section-headline reveal">Professional networking<br>is broken.</h2>
@@ -994,7 +991,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 
 <!-- ── SECTION 3: HOW IT'S DIFFERENT ────────────────────────────────────────── -->
 <div class="section-wrap" id="how-different">
-  <div class="section">
+  <div class="section" style="padding-top:60px">
     <div class="principles-header">
       <span class="eyebrow reveal">How it's different</span>
       <h2 class="section-headline reveal">Built around<br>real relationships.</h2>
@@ -1097,91 +1094,85 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 </div>
 
 <!-- ── SECTION 5: FOUNDING MEMBERS ──────────────────────────────────────────── -->
-<!-- TODO: Replace placeholder silhouettes with real member photos after consent is obtained.
-     Founding members to confirm consent with before featuring:
-     Diane Decelis, Ben Lewis, Mike Hoff, Stephen Fairhall, Maryel Decelis,
-     Mark Cagayat, Leneth Ramos, Joseph Ramos, Jp Ramos -->
+<!-- ── SECTION 5: VOUCHED FOR ─────────────────────────────────────────────────── -->
 <div class="section-wrap" id="members">
   <div class="section">
-    <div class="members-header">
-      <span class="eyebrow reveal">Founding members</span>
-      <h2 class="section-headline reveal">The people already on it.</h2>
-      <p class="members-subhead reveal">A few of the founders, operators, and builders who joined early.</p>
-    </div>
+    <div class="vouched-inner">
+      <div class="vouched-copy">
+        <span class="eyebrow-italic reveal">Every member here</span>
+        <h2 class="vouched-headline reveal">Was vouched for<br>by someone else.</h2>
+        <p class="vouched-body reveal">No cold sign-ups. No open registration. Every profile on ROSTA belongs to someone a current member chose to bring in. That's the whole point — a network stays real when the people in it actually chose each other.</p>
+      </div>
 
-    <div class="members-grid">
-      <div class="member-item reveal">
-        <div class="member-avatar">
-          <div class="member-placeholder" style="background:#1a2d5a;">
-            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-          </div>
-        </div>
-        <div class="member-name">Diane</div>
-        <div class="member-role">Founder</div>
-      </div>
-      <div class="member-item reveal">
-        <div class="member-avatar">
-          <div class="member-placeholder" style="background:#22356b;">
-            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-          </div>
-        </div>
-        <div class="member-name">Ben</div>
-        <div class="member-role">Investor</div>
-      </div>
-      <div class="member-item reveal">
-        <div class="member-avatar">
-          <div class="member-placeholder" style="background:#152548;">
-            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-          </div>
-        </div>
-        <div class="member-name">Mike</div>
-        <div class="member-role">Operator</div>
-      </div>
-      <div class="member-item reveal">
-        <div class="member-avatar">
-          <div class="member-placeholder" style="background:#1e3060;">
-            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-          </div>
-        </div>
-        <div class="member-name">Stephen</div>
-        <div class="member-role">Builder</div>
-      </div>
-      <div class="member-item reveal">
-        <div class="member-avatar">
-          <div class="member-placeholder" style="background:#111f3a;">
-            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-          </div>
-        </div>
-        <div class="member-name">Maryel</div>
-        <div class="member-role">Strategist</div>
-      </div>
-      <div class="member-item reveal">
-        <div class="member-avatar">
-          <div class="member-placeholder" style="background:#1a2d5a;">
-            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-          </div>
-        </div>
-        <div class="member-name">Mark</div>
-        <div class="member-role">Founder</div>
-      </div>
-      <div class="member-item reveal">
-        <div class="member-avatar">
-          <div class="member-placeholder" style="background:#0f1b3c;">
-            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-          </div>
-        </div>
-        <div class="member-name">Leneth</div>
-        <div class="member-role">Community</div>
-      </div>
-      <div class="member-item reveal">
-        <div class="member-avatar">
-          <div class="member-placeholder" style="background:#243b6e;">
-            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
-          </div>
-        </div>
-        <div class="member-name">Joseph</div>
-        <div class="member-role">Advisor</div>
-      </div>
+      <!-- Ambient network graphic: organic scatter of nodes + edges, static SVG -->
+      <svg class="vouched-graphic reveal" viewBox="0 0 800 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Lime glow behind spotlight nodes (3 nodes) -->
+        <circle cx="148" cy="88"  r="18" fill="#C8F53C" opacity="0.35"/>
+        <circle cx="512" cy="204" r="16" fill="#C8F53C" opacity="0.35"/>
+        <circle cx="688" cy="112" r="14" fill="#C8F53C" opacity="0.35"/>
+
+        <!-- Edges (thin, navy 40% opacity) -->
+        <g stroke="#0F1B3C" stroke-opacity="0.4" stroke-width="1">
+          <!-- cluster A (top-left) -->
+          <line x1="148" y1="88"  x2="72"  y2="144"/>
+          <line x1="148" y1="88"  x2="218" y2="60"/>
+          <line x1="148" y1="88"  x2="200" y2="148"/>
+          <line x1="72"  y1="144" x2="38"  y2="200"/>
+          <line x1="72"  y1="144" x2="132" y2="196"/>
+          <line x1="218" y1="60"  x2="280" y2="96"/>
+          <line x1="200" y1="148" x2="280" y2="96"/>
+          <line x1="200" y1="148" x2="264" y2="196"/>
+          <!-- cluster B (centre) -->
+          <line x1="380" y1="72"  x2="340" y2="144"/>
+          <line x1="380" y1="72"  x2="440" y2="128"/>
+          <line x1="340" y1="144" x2="380" y2="216"/>
+          <line x1="340" y1="144" x2="264" y2="196"/>
+          <line x1="440" y1="128" x2="512" y2="204"/>
+          <line x1="440" y1="128" x2="460" y2="56"/>
+          <line x1="380" y1="216" x2="512" y2="204"/>
+          <line x1="380" y1="216" x2="340" y2="278"/>
+          <!-- cluster C (right) -->
+          <line x1="512" y1="204" x2="592" y2="264"/>
+          <line x1="512" y1="204" x2="600" y2="156"/>
+          <line x1="600" y1="156" x2="688" y2="112"/>
+          <line x1="688" y1="112" x2="752" y2="60"/>
+          <line x1="688" y1="112" x2="762" y2="184"/>
+          <line x1="688" y1="112" x2="628" y2="76"/>
+          <line x1="752" y1="60"  x2="628" y2="76"/>
+          <!-- cross-cluster bridges -->
+          <line x1="280" y1="96"  x2="380" y2="72"/>
+          <line x1="264" y1="196" x2="340" y2="278"/>
+          <line x1="460" y1="56"  x2="512" y2="204" stroke-opacity="0.18"/>
+        </g>
+
+        <!-- Nodes -->
+        <g fill="#0F1B3C">
+          <!-- cluster A -->
+          <circle cx="148" cy="88"  r="7"/>
+          <circle cx="72"  cy="144" r="5"/>
+          <circle cx="218" cy="60"  r="6"/>
+          <circle cx="200" cy="148" r="4"/>
+          <circle cx="38"  cy="200" r="3"/>
+          <circle cx="132" cy="196" r="5"/>
+          <circle cx="280" cy="96"  r="6"/>
+          <circle cx="264" cy="196" r="4"/>
+          <!-- cluster B -->
+          <circle cx="380" cy="72"  r="5"/>
+          <circle cx="340" cy="144" r="6"/>
+          <circle cx="440" cy="128" r="5"/>
+          <circle cx="460" cy="56"  r="3"/>
+          <circle cx="380" cy="216" r="4"/>
+          <circle cx="340" cy="278" r="3"/>
+          <!-- cluster C / spotlight nodes -->
+          <circle cx="512" cy="204" r="8"/>
+          <circle cx="600" cy="156" r="5"/>
+          <circle cx="688" cy="112" r="7"/>
+          <circle cx="752" cy="60"  r="4"/>
+          <circle cx="762" cy="184" r="3"/>
+          <circle cx="628" cy="76"  r="5"/>
+          <circle cx="592" cy="264" r="4"/>
+        </g>
+      </svg>
     </div>
   </div>
 </div>
@@ -1246,65 +1237,70 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       </svg>
     </button>
 
-    <div class="modal-form-wrap" id="modal-form-wrap">
-      <p class="modal-eyebrow">Founding membership</p>
-      <h2 class="modal-title" id="modal-title">Request an introduction.</h2>
-      <p class="modal-sub">We review every request. If it's a good fit, we'll connect you with a member who can bring you in properly.</p>
+    <div class="modal-scroll">
+      <div class="modal-form-wrap" id="modal-form-wrap">
+        <p class="modal-eyebrow">Founding membership</p>
+        <h2 class="modal-title" id="modal-title">Request an introduction.</h2>
+        <p class="modal-sub">We review every request. If it's a good fit, we'll connect you with a member who can bring you in properly.</p>
 
-      <form class="modal-form" id="invite-form" onsubmit="handleSubmit(event)">
-        <div class="form-field">
-          <label class="form-label" for="field-name">Full name</label>
-          <input class="form-input" id="field-name" name="full_name" type="text" placeholder="Your name" required autocomplete="name">
-        </div>
-        <div class="form-field">
-          <label class="form-label" for="field-email">Email</label>
-          <input class="form-input" id="field-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email">
-        </div>
-        <div class="form-field">
-          <label class="form-label" for="field-url">Website or LinkedIn <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
-          <input class="form-input" id="field-url" name="url" type="url" placeholder="https://...">
-        </div>
-        <div class="form-field">
-          <label class="form-label" for="field-building">What are you building?</label>
-          <textarea class="form-textarea" id="field-building" name="what_building" placeholder="One sentence — what's your current focus?" required maxlength="280"></textarea>
-          <span class="form-hint">Keep it present tense.</span>
-        </div>
-        <div class="form-field">
-          <label class="form-label" for="field-city">City <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
-          <input class="form-input" id="field-city" name="city" type="text" placeholder="London, RAK, Dubai…" autocomplete="address-level2">
-        </div>
-        <div class="form-field">
-          <label class="form-label">Do you know a ROSTA member? <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
-          <div style="display:flex;gap:20px;margin-top:4px;">
-            <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;">
-              <input type="radio" id="field-knows-yes" name="knows_member" value="yes" onchange="toggleMemberName(this)">
-              Yes
-            </label>
-            <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;">
-              <input type="radio" id="field-knows-no" name="knows_member" value="no" onchange="toggleMemberName(this)">
-              No
-            </label>
+        <form class="modal-form" id="invite-form" onsubmit="handleSubmit(event)">
+          <div class="form-field">
+            <label class="form-label" for="field-name">Full name</label>
+            <input class="form-input" id="field-name" name="full_name" type="text" placeholder="Your name" required autocomplete="name">
           </div>
-        </div>
-        <div class="form-field" id="field-member-name-wrap" style="display:none;">
-          <label class="form-label" for="field-member-name">Who?</label>
-          <input class="form-input" id="field-member-name" name="member_name" type="text" placeholder="Their name">
-        </div>
+          <div class="form-field">
+            <label class="form-label" for="field-email">Email</label>
+            <input class="form-input" id="field-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="field-url">Website or LinkedIn <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
+            <input class="form-input" id="field-url" name="url" type="url" placeholder="https://...">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="field-building">What are you building?</label>
+            <textarea class="form-textarea" id="field-building" name="what_building" placeholder="One sentence — what's your current focus?" required maxlength="280"></textarea>
+            <span class="form-hint">Keep it present tense.</span>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="field-city">City <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
+            <input class="form-input" id="field-city" name="city" type="text" placeholder="London, RAK, Dubai…" autocomplete="address-level2">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Do you know a ROSTA member? <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
+            <div style="display:flex;gap:20px;margin-top:4px;">
+              <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;">
+                <input type="radio" id="field-knows-yes" name="knows_member" value="yes" onchange="toggleMemberName(this)">
+                Yes
+              </label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;">
+                <input type="radio" id="field-knows-no" name="knows_member" value="no" onchange="toggleMemberName(this)">
+                No
+              </label>
+            </div>
+          </div>
+          <div class="form-field" id="field-member-name-wrap" style="display:none;">
+            <label class="form-label" for="field-member-name">Who?</label>
+            <input class="form-input" id="field-member-name" name="member_name" type="text" placeholder="Their name">
+          </div>
 
-        <div id="form-error" class="modal-error" style="display:none"></div>
+          <div id="form-error" class="modal-error" style="display:none"></div>
+        </form>
+      </div>
 
-        <button class="form-submit" type="submit" id="submit-btn">Request an introduction</button>
-      </form>
+      <div class="modal-success" id="modal-success">
+        <div class="success-dot">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1B3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6L9 17l-5-5"/>
+          </svg>
+        </div>
+        <h3 class="success-title">Got it.</h3>
+        <p class="success-body">We'll review and get back to you. No timeline promise — we move at the speed the network can support.</p>
+      </div>
     </div>
 
-    <div class="modal-success" id="modal-success">
-      <div class="success-dot">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1B3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 6L9 17l-5-5"/>
-        </svg>
-      </div>
-      <h3 class="success-title">Got it.</h3>
-      <p class="success-body">We'll review and get back to you. No timeline promise — we move at the speed the network can support.</p>
+    <div class="modal-footer" id="modal-footer">
+      <button class="form-submit" form="invite-form" type="submit" id="submit-btn">Request an introduction</button>
+      <a href="#" class="modal-cancel" onclick="closeModal(); return false;">Cancel</a>
     </div>
   </div>
 </div>
@@ -1463,6 +1459,7 @@ async function handleSubmit(e) {
 
     if (res.ok && json.success) {
       document.getElementById('modal-form-wrap').classList.add('hidden')
+      document.getElementById('modal-footer').style.display = 'none'
       document.getElementById('modal-success').classList.add('visible')
     } else {
       throw new Error(json.error || 'Something went wrong. Try again.')
