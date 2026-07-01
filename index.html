@@ -214,7 +214,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   position: absolute;
   border-radius: 50%;
   overflow: hidden;
-  opacity: 0.55;
+  opacity: 0.8;
   transform-origin: 0 0;
 }
 
@@ -255,13 +255,14 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid rgba(245,242,238,0.2);
+  border: 2px solid rgba(245,242,238,0.3);
   border-radius: 50%;
+  background: rgba(245,242,238,0.08);
 }
 .orbit-silhouette svg {
   width: 55%;
   height: 55%;
-  fill: rgba(245,242,238,0.5);
+  fill: rgba(245,242,238,0.55);
 }
 
 /* Hero content */
@@ -395,13 +396,18 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   margin-bottom: 28px;
 }
 
-/* Reveal animation */
+/* Reveal animation — content is visible by default (no JS = no hiding) */
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
+  opacity: 1;
+  transform: none;
   transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
 }
-.reveal.visible {
+/* JS adds .js-loaded to body first, then .reveal elements start hidden */
+.js-loaded .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.js-loaded .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1351,38 +1357,27 @@ document.addEventListener('click', e => {
   window.addEventListener('resize', resize, { passive: true })
 })();
 
-/* ── Orbit container: centre on hero ── */
-(function positionOrbits() {
-  const hero = document.querySelector('.hero')
-  const orbits = document.getElementById('hero-orbits')
-  if (!hero || !orbits) return
-
-  function recentre() {
-    const rect = hero.getBoundingClientRect()
-    orbits.style.left = (rect.width / 2) + 'px'
-    orbits.style.top  = (rect.height / 2) + 'px'
-  }
-  recentre()
-  window.addEventListener('resize', recentre, { passive: true })
-})();
+/* Orbit container centering handled by CSS top:50%/left:50% */
 
 /* ── Scroll reveal (IntersectionObserver) ── */
 (function initReveal() {
+  // Mark body so CSS can set initial hidden state
+  document.body.classList.add('js-loaded')
+
   if (!('IntersectionObserver' in window)) {
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'))
     return
   }
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        // Stagger siblings slightly
         const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'))
         const idx = siblings.indexOf(entry.target)
         setTimeout(() => entry.target.classList.add('visible'), idx * 80)
         io.unobserve(entry.target)
       }
     })
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' })
+  }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' })
 
   document.querySelectorAll('.reveal').forEach(el => io.observe(el))
 })();
