@@ -163,6 +163,6 @@ exports.handler = async (event) => {
     return { statusCode: 200, headers, body: JSON.stringify({ success: true }) }
   } catch (err) {
     console.error('Unexpected error:', err)
-    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server error. Please try again.' }) }
+    return { statusCode: 500, headers, body: JSON.stringify({ error: 'Server error. Please try again.', _debug: err && err.message }) }
   }
 }
