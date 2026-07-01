@@ -1254,7 +1254,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       <form class="modal-form" id="invite-form" onsubmit="handleSubmit(event)">
         <div class="form-field">
           <label class="form-label" for="field-name">Full name</label>
-          <input class="form-input" id="field-name" name="fullName" type="text" placeholder="Your name" required autocomplete="name">
+          <input class="form-input" id="field-name" name="full_name" type="text" placeholder="Your name" required autocomplete="name">
         </div>
         <div class="form-field">
           <label class="form-label" for="field-email">Email</label>
@@ -1266,8 +1266,29 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
         </div>
         <div class="form-field">
           <label class="form-label" for="field-building">What are you building?</label>
-          <textarea class="form-textarea" id="field-building" name="whatBuilding" placeholder="One sentence — what's your current focus?" required maxlength="280"></textarea>
+          <textarea class="form-textarea" id="field-building" name="what_building" placeholder="One sentence — what's your current focus?" required maxlength="280"></textarea>
           <span class="form-hint">Keep it present tense.</span>
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-city">City <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
+          <input class="form-input" id="field-city" name="city" type="text" placeholder="London, RAK, Dubai…" autocomplete="address-level2">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Do you know a ROSTA member? <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
+          <div style="display:flex;gap:20px;margin-top:4px;">
+            <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;">
+              <input type="radio" id="field-knows-yes" name="knows_member" value="yes" onchange="toggleMemberName(this)">
+              Yes
+            </label>
+            <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;">
+              <input type="radio" id="field-knows-no" name="knows_member" value="no" onchange="toggleMemberName(this)">
+              No
+            </label>
+          </div>
+        </div>
+        <div class="form-field" id="field-member-name-wrap" style="display:none;">
+          <label class="form-label" for="field-member-name">Who?</label>
+          <input class="form-input" id="field-member-name" name="member_name" type="text" placeholder="Their name">
         </div>
 
         <div id="form-error" class="modal-error" style="display:none"></div>
@@ -1400,37 +1421,51 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal()
 })
 
-/* ── Form submission → Netlify Function → Loops ── */
+/* ── Show/hide "Who?" field based on knows_member radio ── */
+function toggleMemberName(radio) {
+  const wrap = document.getElementById('field-member-name-wrap')
+  wrap.style.display = radio.value === 'yes' ? 'flex' : 'none'
+  if (radio.value !== 'yes') {
+    document.getElementById('field-member-name').value = ''
+  }
+}
+
+/* ── Form submission → Netlify Function → Supabase invite_requests ── */
 async function handleSubmit(e) {
   e.preventDefault()
   const btn = document.getElementById('submit-btn')
   const err = document.getElementById('form-error')
-  const form = document.getElementById('invite-form')
 
   err.style.display = 'none'
   btn.disabled = true
   btn.textContent = 'Sending…'
 
-  const data = {
-    fullName:     document.getElementById('field-name').value.trim(),
+  const knowsRadio = document.querySelector('input[name="knows_member"]:checked')
+  const knowsValue = knowsRadio ? knowsRadio.value === 'yes' : null
+
+  const payload = {
+    full_name:    document.getElementById('field-name').value.trim(),
     email:        document.getElementById('field-email').value.trim(),
-    url:          document.getElementById('field-url').value.trim(),
-    whatBuilding: document.getElementById('field-building').value.trim(),
+    url:          document.getElementById('field-url').value.trim() || null,
+    what_building: document.getElementById('field-building').value.trim(),
+    city:         document.getElementById('field-city').value.trim() || null,
+    knows_member: knowsValue,
+    member_name:  document.getElementById('field-member-name').value.trim() || null,
   }
 
   try {
-    const res = await fetch('/.netlify/functions/subscribe', {
+    const res = await fetch('/.netlify/functions/invite-request', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
     })
     const json = await res.json()
 
-    if (res.ok || json.success) {
+    if (res.ok && json.success) {
       document.getElementById('modal-form-wrap').classList.add('hidden')
       document.getElementById('modal-success').classList.add('visible')
     } else {
-      throw new Error(json.message || 'Something went wrong. Try again.')
+      throw new Error(json.error || 'Something went wrong. Try again.')
     }
   } catch (er) {
     err.textContent = er.message || 'Something went wrong. Try again.'

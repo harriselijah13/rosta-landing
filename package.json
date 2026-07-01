@@ -1,0 +1,9 @@
+{
+  "name": "rosta-landing",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ROSTA marketing homepage — onrosta.com",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.106.2"
+  }
+}
