@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROSTA — Your Real Network</title>
+<meta name="description" content="The professional network for people who actually build things. Warm introductions. Real conversations. No performance.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ────────────────────────────────────────────────────────────────── */
+:root {
+  --navy:       #0F1B3C;
+  --navy-80:    rgba(15,27,60,0.8);
+  --navy-60:    rgba(15,27,60,0.6);
+  --navy-40:    rgba(15,27,60,0.4);
+  --navy-10:    rgba(15,27,60,0.1);
+  --lime:       #C8F53C;
+  --warm-white: #F5F2EE;
+  --surface:    #F0EDE8;
+  --border:     #E5E1DB;
+  --body-grey:  #6B7280;
+  --white:      #FFFFFF;
+  --radius-sm:  8px;
+  --radius-md:  16px;
+  --radius-lg:  24px;
+  --radius-pill:100px;
+}
+
+/* ── RESET ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--warm-white);
+  color: var(--navy);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+
+/* ── TYPOGRAPHY ────────────────────────────────────────────────────────────── */
+.f-display {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+.f-italic {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* ── NAV ───────────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  padding: 0 48px;
+  background: rgba(245,242,238,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+nav.nav-dark {
+  background: rgba(15,27,60,0.92);
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+
+.nav-logo {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+  transition: color 0.3s;
+}
+.nav-logo .dot { color: var(--lime); }
+nav.nav-dark .nav-logo { color: var(--warm-white); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--body-grey);
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--navy); }
+nav.nav-dark .nav-link { color: rgba(245,242,238,0.65); }
+nav.nav-dark .nav-link:hover { color: var(--warm-white); }
+
+.nav-signin {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+  transition: color 0.2s;
+}
+nav.nav-dark .nav-signin { color: var(--warm-white); }
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  background: var(--lime);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 9px 20px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.01em;
+}
+.nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--navy);
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
+
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 68px; left: 0; right: 0;
+  background: var(--warm-white);
+  border-bottom: 1px solid var(--border);
+  padding: 24px;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 199;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-item {
+  display: block;
+  padding: 12px 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--navy);
+  border-bottom: 1px solid var(--border);
+}
+.nav-mobile-item:last-child { border-bottom: none; }
+.nav-mobile-cta {
+  margin-top: 12px;
+  display: block;
+  text-align: center;
+  background: var(--lime);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px;
+  border-radius: var(--radius-pill);
+}
+
+/* ── HERO ──────────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  background: var(--navy);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+/* Orbital portrait system */
+.hero-orbits {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0; height: 0;
+  pointer-events: none;
+  transform-origin: 0 0;
+}
+
+.orbit-portrait {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  opacity: 0.55;
+  transform-origin: 0 0;
+}
+
+/* 10 orbit items — varied sizes, speeds, radii, start positions */
+.orbit-portrait:nth-child(1)  { width:56px;height:56px; top:-28px; left:-28px;
+  animation: orbit 28s linear 0s infinite; --r:340px; }
+.orbit-portrait:nth-child(2)  { width:48px;height:48px; top:-24px; left:-24px;
+  animation: orbit 38s linear 5s infinite; --r:260px; }
+.orbit-portrait:nth-child(3)  { width:64px;height:64px; top:-32px; left:-32px;
+  animation: orbit-rev 32s linear 10s infinite; --r:420px; }
+.orbit-portrait:nth-child(4)  { width:40px;height:40px; top:-20px; left:-20px;
+  animation: orbit-rev 44s linear 2s infinite; --r:200px; }
+.orbit-portrait:nth-child(5)  { width:52px;height:52px; top:-26px; left:-26px;
+  animation: orbit 36s linear 8s infinite; --r:380px; }
+.orbit-portrait:nth-child(6)  { width:44px;height:44px; top:-22px; left:-22px;
+  animation: orbit 50s linear 15s infinite; --r:480px; }
+.orbit-portrait:nth-child(7)  { width:60px;height:60px; top:-30px; left:-30px;
+  animation: orbit-rev 42s linear 3s infinite; --r:300px; }
+.orbit-portrait:nth-child(8)  { width:36px;height:36px; top:-18px; left:-18px;
+  animation: orbit 30s linear 12s infinite; --r:460px; }
+.orbit-portrait:nth-child(9)  { width:48px;height:48px; top:-24px; left:-24px;
+  animation: orbit-rev 55s linear 7s infinite; --r:220px; }
+.orbit-portrait:nth-child(10) { width:40px;height:40px; top:-20px; left:-20px;
+  animation: orbit 60s linear 20s infinite; --r:520px; }
+
+@keyframes orbit {
+  from { transform: rotate(0deg)   translateX(var(--r)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--r)) rotate(-360deg); }
+}
+@keyframes orbit-rev {
+  from { transform: rotate(0deg)    translateX(var(--r)) rotate(0deg); }
+  to   { transform: rotate(-360deg) translateX(var(--r)) rotate(360deg); }
+}
+
+/* Silhouette placeholder inside each portrait circle */
+.orbit-silhouette {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(245,242,238,0.2);
+  border-radius: 50%;
+}
+.orbit-silhouette svg {
+  width: 55%;
+  height: 55%;
+  fill: rgba(245,242,238,0.5);
+}
+
+/* Hero content */
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 760px;
+}
+
+.hero-eyebrow {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--lime);
+  letter-spacing: 0.05em;
+  margin-bottom: 28px;
+  display: block;
+}
+
+.hero-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(52px, 8vw, 96px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--warm-white);
+  margin-bottom: 28px;
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 19px);
+  font-weight: 400;
+  color: rgba(245,242,238,0.8);
+  line-height: 1.6;
+  max-width: 540px;
+  margin: 0 auto 44px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-lime {
+  display: inline-flex;
+  align-items: center;
+  background: var(--lime);
+  color: var(--navy);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 16px 36px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.btn-lime:hover { opacity: 0.88; transform: translateY(-2px); }
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  background: transparent;
+  color: var(--warm-white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 15px 36px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(245,242,238,0.4);
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.15s;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.btn-outline-white:hover { border-color: rgba(245,242,238,0.8); transform: translateY(-2px); }
+
+/* ── SECTION SHELL ─────────────────────────────────────────────────────────── */
+.section {
+  padding: 120px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-wrap { background: var(--warm-white); }
+.section-wrap-surface { background: var(--surface); }
+.section-wrap-navy { background: var(--navy); }
+
+.eyebrow {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--navy-60);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.eyebrow-italic {
+  display: block;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 15px;
+  color: var(--lime);
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+}
+
+.section-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(36px, 4.5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+  margin-bottom: 24px;
+}
+.section-headline-white {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(48px, 6vw, 72px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--warm-white);
+  margin-bottom: 28px;
+}
+
+/* Reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SECTION 2: THE PROBLEM ────────────────────────────────────────────────── */
+.problem-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.problem-body {
+  font-size: 19px;
+  font-weight: 400;
+  color: rgba(15,27,60,0.8);
+  line-height: 1.7;
+}
+.problem-body p + p {
+  margin-top: 28px;
+}
+.problem-highlight {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+/* ── SECTION 3: PRINCIPLES ─────────────────────────────────────────────────── */
+.principles-header {
+  max-width: 600px;
+  margin-bottom: 64px;
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.principle-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 40px 36px;
+  transition: box-shadow 0.25s;
+}
+.principle-card:hover {
+  box-shadow: 0 8px 32px rgba(15,27,60,0.08);
+}
+
+.principle-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--lime);
+  margin-bottom: 24px;
+}
+
+.principle-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+
+.principle-body {
+  font-size: 15px;
+  color: rgba(15,27,60,0.7);
+  line-height: 1.65;
+}
+
+/* ── SECTION 4: WHAT'S INSIDE ──────────────────────────────────────────────── */
+.inside-header {
+  margin-bottom: 80px;
+}
+
+.feature-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.feature-block:last-child { margin-bottom: 0; }
+.feature-block.reverse { direction: rtl; }
+.feature-block.reverse > * { direction: ltr; }
+
+/* Browser chrome frame */
+.browser-frame {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(15,27,60,0.15), 0 4px 16px rgba(15,27,60,0.1);
+  border: 1px solid var(--border);
+}
+
+.browser-chrome {
+  background: #F0EDE8;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.browser-dots {
+  display: flex;
+  gap: 6px;
+}
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.browser-url {
+  flex: 1;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--body-grey);
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.browser-img {
+  display: block;
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.browser-img.img-middle {
+  object-position: center center;
+}
+
+/* Feature text */
+.feature-text {}
+
+.feature-caption {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--body-grey);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.feature-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(28px, 3vw, 38px);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--navy);
+  margin-bottom: 20px;
+}
+
+.feature-body {
+  font-size: 17px;
+  color: rgba(15,27,60,0.72);
+  line-height: 1.65;
+}
+
+/* ── SECTION 5: FOUNDING MEMBERS ───────────────────────────────────────────── */
+/* TODO: Replace placeholder silhouettes with real member photos after consent is obtained.
+   Members known to be open to being featured: [Update this list as consent is gathered] */
+
+.members-header {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 64px;
+}
+.members-subhead {
+  font-size: 17px;
+  color: var(--navy-60);
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+.members-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px 48px;
+}
+
+.member-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.member-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.member-placeholder svg {
+  width: 52%;
+  height: 52%;
+  fill: rgba(245,242,238,0.7);
+}
+
+.member-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.2;
+}
+.member-role {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--body-grey);
+  margin-top: 2px;
+}
+
+/* ── SECTION 6: HOW TO GET IN ──────────────────────────────────────────────── */
+.get-in-inner {
+  max-width: 620px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.get-in-body {
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(245,242,238,0.8);
+  line-height: 1.7;
+  margin-bottom: 44px;
+}
+.get-in-body p + p { margin-top: 24px; }
+
+.get-in-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── FOOTER ─────────────────────────────────────────────────────────────────── */
+.footer-wrap {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 48px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.footer-brand {}
+.footer-wordmark {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+.footer-wordmark .dot { color: var(--lime); }
+.footer-tagline {
+  font-size: 14px;
+  color: var(--body-grey);
+  margin-bottom: 20px;
+}
+.footer-copy {
+  font-size: 13px;
+  color: var(--body-grey);
+}
+
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--body-grey);
+  transition: color 0.2s;
+}
+.footer-link:hover { color: var(--navy); }
+
+.footer-bottom {
+  padding-top: 28px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--body-grey);
+}
+
+/* ── REQUEST MODAL ──────────────────────────────────────────────────────────── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(15,27,60,0.6);
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+
+.modal-card {
+  background: var(--warm-white);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(15,27,60,0.25);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 32px; height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--body-grey);
+  transition: background 0.2s;
+}
+.modal-close:hover { background: var(--surface); color: var(--navy); }
+
+.modal-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--body-grey);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.modal-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 28px;
+  letter-spacing: -0.025em;
+  color: var(--navy);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+.modal-sub {
+  font-size: 14px;
+  color: var(--body-grey);
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.modal-form { display: flex; flex-direction: column; gap: 16px; }
+
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.form-input, .form-textarea {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  color: var(--navy);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.form-input:focus, .form-textarea:focus {
+  border-color: var(--navy);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: var(--body-grey); }
+.form-textarea { resize: none; height: 80px; }
+
+.form-hint {
+  font-size: 12px;
+  color: var(--body-grey);
+}
+
+.form-submit {
+  background: var(--navy);
+  color: var(--warm-white);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 16px 32px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.2s, transform 0.15s;
+  letter-spacing: -0.01em;
+}
+.form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+.form-submit:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.modal-error {
+  font-size: 13px;
+  color: #7C3AED;
+  background: rgba(124,58,237,0.06);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+}
+
+/* Modal success state */
+.modal-success {
+  display: none;
+  text-align: center;
+  padding: 16px 0;
+}
+.modal-success.visible { display: block; }
+.modal-form-wrap.hidden { display: none; }
+
+.success-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: -0.025em;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.success-body {
+  font-size: 16px;
+  color: var(--body-grey);
+  line-height: 1.6;
+}
+.success-dot {
+  width: 48px; height: 48px;
+  background: var(--lime);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  nav { padding: 0 24px; }
+  .nav-right .nav-link { display: none; }
+  .nav-right .nav-signin { display: none; }
+  .nav-right .nav-cta { display: none; }
+  .nav-hamburger { display: flex; }
+  .section { padding: 80px 24px; }
+  .principles-grid { grid-template-columns: 1fr; }
+  .feature-block { grid-template-columns: 1fr; gap: 40px; }
+  .feature-block.reverse { direction: ltr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .members-grid { gap: 32px 36px; }
+  .member-avatar { width: 80px; height: 80px; }
+}
+
+@media (max-width: 767px) {
+  .hero-content { padding: 0 20px; }
+  .hero { min-height: 640px; }
+  /* Hide outermost orbits on mobile */
+  .orbit-portrait:nth-child(6),
+  .orbit-portrait:nth-child(8),
+  .orbit-portrait:nth-child(10) { display: none; }
+  .feature-block { margin-bottom: 64px; }
+  .browser-img { height: 240px; }
+  .modal-card { padding: 32px 24px; }
+  .get-in-inner { padding: 0; }
+  .footer-inner { padding: 48px 24px; }
+  .hero-eyebrow { font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-portrait { animation: none; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────────────────────── -->
+<nav id="main-nav">
+  <a href="/" class="nav-logo">ROSTA<span class="dot">.</span></a>
+  <div class="nav-right">
+    <a href="#how-different" class="nav-link">About</a>
+    <a href="#inside" class="nav-link">How it works</a>
+    <a href="https://app.onrosta.com" class="nav-signin">Sign in</a>
+    <button class="nav-cta" onclick="openModal()">Request an invite</button>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMobile()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="nav-mobile-menu" id="mobile-menu">
+  <a href="#how-different" class="nav-mobile-item" onclick="toggleMobile()">About</a>
+  <a href="#inside" class="nav-mobile-item" onclick="toggleMobile()">How it works</a>
+  <a href="https://app.onrosta.com" class="nav-mobile-item">Sign in</a>
+  <a href="#" class="nav-mobile-cta" onclick="toggleMobile(); openModal(); return false;">Request an invite</a>
+</div>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────────────── -->
+<section class="hero" id="home">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
+  <!-- Orbital portrait circles — placeholder silhouettes, replace with real photos after consent -->
+  <div class="hero-orbits" id="hero-orbits" aria-hidden="true">
+    <!-- 10 orbital portraits with placeholder silhouettes -->
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.6)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(200,245,60,0.15)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.45)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(200,245,60,0.1)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.55)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.35)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(200,245,60,0.12)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.5)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(200,245,60,0.08)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.4)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
+  </div>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">Still who you know.</span>
+    <h1 class="hero-headline">Your real network.</h1>
+    <p class="hero-sub">The professional network for people who actually build things. Warm introductions. Real conversations. No performance.</p>
+    <div class="hero-actions">
+      <button class="btn-lime" onclick="openModal()">Request an invite</button>
+      <a href="https://app.onrosta.com" class="btn-outline-white">Sign in</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SECTION 2: THE PROBLEM ────────────────────────────────────────────────── -->
+<div class="section-wrap">
+  <div class="section" id="problem">
+    <div class="problem-inner">
+      <span class="eyebrow reveal">The problem</span>
+      <h2 class="section-headline reveal">Professional networking<br>is broken.</h2>
+      <div class="problem-body reveal">
+        <p>Every platform rewards broadcasting over connecting. People post to be seen, not to say something true. Profiles become CVs. Connections become numbers. What starts as a network turns into an audience.</p>
+        <p>ROSTA is built the other way. <span class="problem-highlight">Real people. Present tense. Warm introductions only.</span> No performance required.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 3: HOW IT'S DIFFERENT ────────────────────────────────────────── -->
+<div class="section-wrap" id="how-different">
+  <div class="section">
+    <div class="principles-header">
+      <span class="eyebrow reveal">How it's different</span>
+      <h2 class="section-headline reveal">Built around<br>real relationships.</h2>
+    </div>
+
+    <div class="principles-grid">
+      <div class="principle-card reveal">
+        <div class="principle-num"></div>
+        <h3 class="principle-title">No feed. Ever.</h3>
+        <p class="principle-body">There's no public scroll. No algorithmic ranking. No content to perform for. Just what's actually happening with the people you know.</p>
+      </div>
+      <div class="principle-card reveal">
+        <div class="principle-num"></div>
+        <h3 class="principle-title">Warm introductions only.</h3>
+        <p class="principle-body">Nobody can cold-connect. Every new relationship comes through a mutual, with context. The way real professional relationships have always worked.</p>
+      </div>
+      <div class="principle-card reveal">
+        <div class="principle-num"></div>
+        <h3 class="principle-title">Present tense.</h3>
+        <p class="principle-body">Your profile isn't a CV. It's what you're building right now, who you want to meet, and what you need. It changes when you do.</p>
+      </div>
+      <div class="principle-card reveal">
+        <div class="principle-num"></div>
+        <h3 class="principle-title">Invite only.</h3>
+        <p class="principle-body">You join through a member. Which means everyone here was vouched for. It's how you keep a network real.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 4: WHAT'S INSIDE ─────────────────────────────────────────────── -->
+<div class="section-wrap-surface" id="inside">
+  <div class="section">
+    <div class="inside-header">
+      <span class="eyebrow reveal">What's inside</span>
+      <h2 class="section-headline reveal">A platform built<br>for real work.</h2>
+    </div>
+
+    <!-- Feature 1: Network feed (image left, text right) -->
+    <div class="feature-block reveal">
+      <div class="browser-frame">
+        <div class="browser-chrome">
+          <div class="browser-dots">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+          </div>
+          <div class="browser-url">app.onrosta.com</div>
+        </div>
+        <img class="browser-img" src="images/screenshot-dashboard.png" alt="ROSTA dashboard showing the network feed with Asks and Offers from connections" loading="lazy">
+      </div>
+      <div class="feature-text">
+        <p class="feature-caption">The feed</p>
+        <h3 class="feature-title">Your network, without the performance.</h3>
+        <p class="feature-body">See what your connections are working on, what they need, and where you can help. All from people you actually know. Share an Ask or an Offer and it reaches the right people — not everyone.</p>
+      </div>
+    </div>
+
+    <!-- Feature 2: Signals (image right, text left) -->
+    <div class="feature-block reverse reveal">
+      <div class="browser-frame">
+        <div class="browser-chrome">
+          <div class="browser-dots">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+          </div>
+          <div class="browser-url">app.onrosta.com/settings</div>
+        </div>
+        <img class="browser-img img-middle" src="images/screenshot-signals.png" alt="ROSTA profile editor showing present-tense identity fields — Building now and Who I want to meet" loading="lazy">
+      </div>
+      <div class="feature-text">
+        <p class="feature-caption">Your signals</p>
+        <h3 class="feature-title">Present tense identity.</h3>
+        <p class="feature-body">Say what you're building, who you want to meet, and what you need. Update it whenever you do. Your signals tell your network what actually matters to you right now — not where you worked five years ago.</p>
+      </div>
+    </div>
+
+    <!-- Feature 3: Intros (image left, text right) -->
+    <div class="feature-block reveal">
+      <div class="browser-frame">
+        <div class="browser-chrome">
+          <div class="browser-dots">
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+            <div class="browser-dot"></div>
+          </div>
+          <div class="browser-url">app.onrosta.com/intro</div>
+        </div>
+        <img class="browser-img" src="images/screenshot-intros.png" alt="ROSTA intros page showing warm introduction credits and the suggest an intro flow" loading="lazy">
+      </div>
+      <div class="feature-text">
+        <p class="feature-caption">Introductions</p>
+        <h3 class="feature-title">Introductions, not connections.</h3>
+        <p class="feature-body">Every new relationship starts with context. Nobody arrives cold. You request an intro through a mutual — they decide whether to make it. When they do, both sides know exactly why they're in the room.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SECTION 5: FOUNDING MEMBERS ──────────────────────────────────────────── -->
+<!-- TODO: Replace placeholder silhouettes with real member photos after consent is obtained.
+     Founding members to confirm consent with before featuring:
+     Diane Decelis, Ben Lewis, Mike Hoff, Stephen Fairhall, Maryel Decelis,
+     Mark Cagayat, Leneth Ramos, Joseph Ramos, Jp Ramos -->
+<div class="section-wrap" id="members">
+  <div class="section">
+    <div class="members-header">
+      <span class="eyebrow reveal">Founding members</span>
+      <h2 class="section-headline reveal">The people already on it.</h2>
+      <p class="members-subhead reveal">A few of the founders, operators, and builders who joined early.</p>
+    </div>
+
+    <div class="members-grid">
+      <div class="member-item reveal">
+        <div class="member-avatar">
+          <div class="member-placeholder" style="background:#1a2d5a;">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          </div>
+        </div>
+        <div class="member-name">Diane</div>
+        <div class="member-role">Founder</div>
+      </div>
+      <div class="member-item reveal">
+        <div class="member-avatar">
+          <div class="member-placeholder" style="background:#22356b;">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          </div>
+        </div>
+        <div class="member-name">Ben</div>
+        <div class="member-role">Investor</div>
+      </div>
+      <div class="member-item reveal">
+        <div class="member-avatar">
+          <div class="member-placeholder" style="background:#152548;">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          </div>
+        </div>
+        <div class="member-name">Mike</div>
+        <div class="member-role">Operator</div>
+      </div>
+      <div class="member-item reveal">
+        <div class="member-avatar">
+          <div class="member-placeholder" style="background:#1e3060;">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          </div>
+        </div>
+        <div class="member-name">Stephen</div>
+        <div class="member-role">Builder</div>
+      </div>
+      <div class="member-item reveal">
+        <div class="member-avatar">
+          <div class="member-placeholder" style="background:#111f3a;">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          </div>
+        </div>
+        <div class="member-name">Maryel</div>
+        <div class="member-role">Strategist</div>
+      </div>
+      <div class="member-item reveal">
+        <div class="member-avatar">
+          <div class="member-placeholder" style="background:#1a2d5a;">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          </div>
+        </div>
+        <div class="member-name">Mark</div>
+        <div class="member-role">Founder</div>
+      </div>
+      <div class="member-item reveal">
+        <div class="member-avatar">
+          <div class="member-placeholder" style="background:#0f1b3c;">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          </div>
+        </div>
+        <div class="member-name">Leneth</div>
+        <div class="member-role">Community</div>
+      </div>
+      <div class="member-item reveal">
+        <div class="member-avatar">
+          <div class="member-placeholder" style="background:#243b6e;">
+            <svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+          </div>
+        </div>
+        <div class="member-name">Joseph</div>
+        <div class="member-role">Advisor</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 6: HOW TO GET IN ─────────────────────────────────────────────── -->
+<div class="section-wrap-navy" id="get-in">
+  <div class="section">
+    <div class="get-in-inner">
+      <span class="eyebrow-italic reveal">How to get in</span>
+      <h2 class="section-headline-white reveal">It's invite only.</h2>
+      <div class="get-in-body reveal">
+        <p>You join through someone already on ROSTA. They send you a code. You use it to build your profile.</p>
+        <p>If you don't know a member yet, you can ask to be introduced. We review requests carefully — this only works if the network stays real.</p>
+      </div>
+      <div class="get-in-actions">
+        <button class="btn-lime" onclick="openModal()">Request an introduction</button>
+        <a href="https://app.onrosta.com/join" class="btn-outline-white">I have a code</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────────── -->
+<div class="footer-wrap">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-wordmark">ROSTA<span class="dot">.</span></div>
+        <p class="footer-tagline">Your real network.</p>
+        <p class="footer-copy">© 2026 FYNL Studio FC-LLC</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Platform</p>
+        <div class="footer-links">
+          <a href="#how-different" class="footer-link">About</a>
+          <a href="#inside" class="footer-link">How it works</a>
+          <a href="https://app.onrosta.com/members" class="footer-link">Members</a>
+          <a href="mailto:hello@onrosta.com" class="footer-link">Contact</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Legal</p>
+        <div class="footer-links">
+          <a href="https://app.onrosta.com/privacy" class="footer-link">Privacy</a>
+          <a href="https://app.onrosta.com/terms" class="footer-link">Terms</a>
+          <a href="https://app.onrosta.com/cookies" class="footer-link">Cookies</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      ROSTA is invite only. Every member was vouched for.
+    </div>
+  </div>
+</div>
+
+<!-- ── REQUEST AN INVITE MODAL ──────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <div class="modal-form-wrap" id="modal-form-wrap">
+      <p class="modal-eyebrow">Founding membership</p>
+      <h2 class="modal-title" id="modal-title">Request an introduction.</h2>
+      <p class="modal-sub">We review every request. If it's a good fit, we'll connect you with a member who can bring you in properly.</p>
+
+      <form class="modal-form" id="invite-form" onsubmit="handleSubmit(event)">
+        <div class="form-field">
+          <label class="form-label" for="field-name">Full name</label>
+          <input class="form-input" id="field-name" name="fullName" type="text" placeholder="Your name" required autocomplete="name">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-email">Email</label>
+          <input class="form-input" id="field-email" name="email" type="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-url">Website or LinkedIn <span style="font-weight:400;color:var(--body-grey)">(optional)</span></label>
+          <input class="form-input" id="field-url" name="url" type="url" placeholder="https://...">
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="field-building">What are you building?</label>
+          <textarea class="form-textarea" id="field-building" name="whatBuilding" placeholder="One sentence — what's your current focus?" required maxlength="280"></textarea>
+          <span class="form-hint">Keep it present tense.</span>
+        </div>
+
+        <div id="form-error" class="modal-error" style="display:none"></div>
+
+        <button class="form-submit" type="submit" id="submit-btn">Request an introduction</button>
+      </form>
+    </div>
+
+    <div class="modal-success" id="modal-success">
+      <div class="success-dot">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0F1B3C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </div>
+      <h3 class="success-title">Got it.</h3>
+      <p class="success-body">We'll review and get back to you. No timeline promise — we move at the speed the network can support.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCRIPTS ────────────────────────────────────────────────────────────────── -->
+<script>
+/* ── Nav scroll behaviour (dark on hero, light below) ── */
+const mainNav = document.getElementById('main-nav')
+function handleNavScroll() {
+  const heroH = document.querySelector('.hero').offsetHeight
+  mainNav.classList.toggle('nav-dark', window.scrollY < heroH - 80)
+}
+handleNavScroll()
+window.addEventListener('scroll', handleNavScroll, { passive: true })
+
+/* ── Mobile menu ── */
+function toggleMobile() {
+  document.getElementById('mobile-menu').classList.toggle('open')
+}
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobile-menu')
+  const btn = document.getElementById('hamburger')
+  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('open')
+  }
+})
+
+/* ── Hero ambient canvas (starfield dots) ── */
+(function initCanvas() {
+  const canvas = document.getElementById('hero-canvas')
+  if (!canvas) return
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  const ctx = canvas.getContext('2d')
+  const dots = []
+  const COUNT = 40
+
+  function resize() {
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+    dots.length = 0
+    for (let i = 0; i < COUNT; i++) {
+      dots.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: 0.8 + Math.random() * 1.8,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+        a: 0.1 + Math.random() * 0.18,
+      })
+    }
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    for (const d of dots) {
+      d.x += d.vx; d.y += d.vy
+      if (d.x < 0) d.x = canvas.width
+      if (d.x > canvas.width) d.x = 0
+      if (d.y < 0) d.y = canvas.height
+      if (d.y > canvas.height) d.y = 0
+      ctx.beginPath()
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(245,242,238,${d.a})`
+      ctx.fill()
+    }
+    requestAnimationFrame(tick)
+  }
+
+  resize()
+  tick()
+  window.addEventListener('resize', resize, { passive: true })
+})();
+
+/* ── Orbit container: centre on hero ── */
+(function positionOrbits() {
+  const hero = document.querySelector('.hero')
+  const orbits = document.getElementById('hero-orbits')
+  if (!hero || !orbits) return
+
+  function recentre() {
+    const rect = hero.getBoundingClientRect()
+    orbits.style.left = (rect.width / 2) + 'px'
+    orbits.style.top  = (rect.height / 2) + 'px'
+  }
+  recentre()
+  window.addEventListener('resize', recentre, { passive: true })
+})();
+
+/* ── Scroll reveal (IntersectionObserver) ── */
+(function initReveal() {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'))
+    return
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Stagger siblings slightly
+        const siblings = Array.from(entry.target.parentElement.querySelectorAll('.reveal'))
+        const idx = siblings.indexOf(entry.target)
+        setTimeout(() => entry.target.classList.add('visible'), idx * 80)
+        io.unobserve(entry.target)
+      }
+    })
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' })
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el))
+})();
+
+/* ── Modal ── */
+function openModal() {
+  document.getElementById('modal').classList.add('open')
+  document.body.style.overflow = 'hidden'
+  setTimeout(() => document.getElementById('field-name').focus(), 100)
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('open')
+  document.body.style.overflow = ''
+}
+
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal()
+})
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal()
+})
+
+/* ── Form submission → Netlify Function → Loops ── */
+async function handleSubmit(e) {
+  e.preventDefault()
+  const btn = document.getElementById('submit-btn')
+  const err = document.getElementById('form-error')
+  const form = document.getElementById('invite-form')
+
+  err.style.display = 'none'
+  btn.disabled = true
+  btn.textContent = 'Sending…'
+
+  const data = {
+    fullName:     document.getElementById('field-name').value.trim(),
+    email:        document.getElementById('field-email').value.trim(),
+    url:          document.getElementById('field-url').value.trim(),
+    whatBuilding: document.getElementById('field-building').value.trim(),
+  }
+
+  try {
+    const res = await fetch('/.netlify/functions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    const json = await res.json()
+
+    if (res.ok || json.success) {
+      document.getElementById('modal-form-wrap').classList.add('hidden')
+      document.getElementById('modal-success').classList.add('visible')
+    } else {
+      throw new Error(json.message || 'Something went wrong. Try again.')
+    }
+  } catch (er) {
+    err.textContent = er.message || 'Something went wrong. Try again.'
+    err.style.display = 'block'
+    btn.disabled = false
+    btn.textContent = 'Request an introduction'
+  }
+}
+</script>
+</body>
+</html>
