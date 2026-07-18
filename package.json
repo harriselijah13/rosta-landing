@@ -5,5 +5,8 @@
   "description": "ROSTA marketing homepage — onrosta.com",
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
   }
 }
