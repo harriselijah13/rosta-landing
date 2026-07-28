@@ -24,6 +24,22 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Password must be at least 8 characters.' }) }
     }
 
+    // Rate limit: 5 attempts per IP per hour
+    const ip = event.headers['x-forwarded-for'] || event.headers['client-ip'] || 'unknown'
+    const rlRes = await fetch(`${process.env.SUPABASE_URL}/rest/v1/rpc/check_signup_rate_limit`, {
+      method: 'POST',
+      headers: {
+        'apikey':        process.env.SUPABASE_SERVICE_ROLE_KEY,
+        'Authorization': `Bearer ${process.env.SUPABASE_SERVICE_ROLE_KEY}`,
+        'Content-Type':  'application/json',
+      },
+      body: JSON.stringify({ _ip: ip, _max_attempts: 5, _window_minutes: 60 }),
+    })
+    const allowed = await rlRes.json().catch(() => true)
+    if (!allowed) {
+      return { statusCode: 429, headers, body: JSON.stringify({ error: 'Too many signup attempts. Try again later.' }) }
+    }
+
     const supabase = createClient(
       process.env.SUPABASE_URL,
       process.env.SUPABASE_ANON_KEY,
