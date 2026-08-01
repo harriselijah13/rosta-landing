@@ -580,8 +580,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   line-height: 1.65;
 }
 
-/* ── SECTION 5: FOUNDING MEMBERS ───────────────────────────────────────────── */
-/* ── SECTION 5: VOUCHED FOR (replaces founding members) ────────────────────── */
+/* ── SECTION 5: OPEN BUT NOT COLD ──────────────────────────────────────────── */
 .vouched-inner {
   text-align: center;
   max-width: 960px;
@@ -589,7 +588,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 }
 .vouched-copy {
   max-width: 640px;
-  margin: 0 auto 64px;
+  margin: 0 auto;
 }
 .vouched-headline {
   font-family: 'Fraunces', serif;
@@ -1092,18 +1091,8 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   height: auto;
 }
 
-/* 4th principle ("Invite only") — concept, not a UI screen */
-.principle-standalone {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 36px 40px;
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-  margin-top: 48px;
-  max-width: 620px;
-}
+/* Last feature row sits flush against section bottom padding */
+.feature-block-device:last-child { margin-bottom: 0; }
 
 /* Responsive */
 @media (max-width: 1023px) {
@@ -1168,7 +1157,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
         <button class="btn-lime" onclick="openModal()">Create account</button>
         <a href="https://app.onrosta.com" class="btn-outline-white">Sign in</a>
       </div>
-      <p class="hero-beta-note"><span class="beta-pill">Beta</span>ROSTA is a mobile app. Sign up to reserve your spot — you'll get the download link the moment it's live.</p>
+      <p class="hero-beta-note"><span class="beta-pill">Beta</span>ROSTA is a mobile app. Create your account now — you'll get the download link the moment it's live.</p>
     </div>
 
     <!-- Profile card device mockup — illustrated SVG, not a screenshot -->
@@ -1381,14 +1370,6 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       </div>
     </div>
 
-    <!-- Compact card: "Invite only" — social concept, not a UI screen -->
-    <div class="principle-standalone reveal">
-      <div class="principle-num" style="flex-shrink:0; margin-top:6px;"></div>
-      <div>
-        <h3 class="principle-title">Invite only.</h3>
-        <p class="principle-body">You join through a member. Which means everyone here was vouched for. It's how you keep a network real.</p>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -1463,86 +1444,14 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   </div>
 </div>
 
-<!-- ── SECTION 5: FOUNDING MEMBERS ──────────────────────────────────────────── -->
-<!-- ── SECTION 5: VOUCHED FOR ─────────────────────────────────────────────────── -->
+<!-- ── SECTION 5: OPEN BUT NOT COLD ──────────────────────────────────────────── -->
 <div class="section-wrap" id="members">
   <div class="section">
     <div class="vouched-inner">
       <div class="vouched-copy">
-        <span class="eyebrow-italic reveal">Every member here</span>
-        <h2 class="vouched-headline reveal">Was vouched for<br>by someone else.</h2>
-        <p class="vouched-body reveal">No cold sign-ups. No open registration. Every profile on ROSTA belongs to someone a current member chose to bring in. That's the whole point — a network stays real when the people in it actually chose each other.</p>
+        <h2 class="vouched-headline reveal">Open to join. Not open<br>to cold-message.</h2>
+        <p class="vouched-body reveal">Anyone can create an account. But you still can't message someone out of nowhere — connections happen through Open Door or a warm introduction, same as always.</p>
       </div>
-
-      <!-- Ambient network graphic: organic scatter of nodes + edges, static SVG -->
-      <svg class="vouched-graphic reveal" viewBox="0 0 800 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Lime glow behind spotlight nodes (3 nodes) -->
-        <circle cx="148" cy="88"  r="18" fill="#C8F53C" opacity="0.35"/>
-        <circle cx="512" cy="204" r="16" fill="#C8F53C" opacity="0.35"/>
-        <circle cx="688" cy="112" r="14" fill="#C8F53C" opacity="0.35"/>
-
-        <!-- Edges (thin, navy 40% opacity) -->
-        <g stroke="#0F1B3C" stroke-opacity="0.4" stroke-width="1">
-          <!-- cluster A (top-left) -->
-          <line x1="148" y1="88"  x2="72"  y2="144"/>
-          <line x1="148" y1="88"  x2="218" y2="60"/>
-          <line x1="148" y1="88"  x2="200" y2="148"/>
-          <line x1="72"  y1="144" x2="38"  y2="200"/>
-          <line x1="72"  y1="144" x2="132" y2="196"/>
-          <line x1="218" y1="60"  x2="280" y2="96"/>
-          <line x1="200" y1="148" x2="280" y2="96"/>
-          <line x1="200" y1="148" x2="264" y2="196"/>
-          <!-- cluster B (centre) -->
-          <line x1="380" y1="72"  x2="340" y2="144"/>
-          <line x1="380" y1="72"  x2="440" y2="128"/>
-          <line x1="340" y1="144" x2="380" y2="216"/>
-          <line x1="340" y1="144" x2="264" y2="196"/>
-          <line x1="440" y1="128" x2="512" y2="204"/>
-          <line x1="440" y1="128" x2="460" y2="56"/>
-          <line x1="380" y1="216" x2="512" y2="204"/>
-          <line x1="380" y1="216" x2="340" y2="278"/>
-          <!-- cluster C (right) -->
-          <line x1="512" y1="204" x2="592" y2="264"/>
-          <line x1="512" y1="204" x2="600" y2="156"/>
-          <line x1="600" y1="156" x2="688" y2="112"/>
-          <line x1="688" y1="112" x2="752" y2="60"/>
-          <line x1="688" y1="112" x2="762" y2="184"/>
-          <line x1="688" y1="112" x2="628" y2="76"/>
-          <line x1="752" y1="60"  x2="628" y2="76"/>
-          <!-- cross-cluster bridges -->
-          <line x1="280" y1="96"  x2="380" y2="72"/>
-          <line x1="264" y1="196" x2="340" y2="278"/>
-          <line x1="460" y1="56"  x2="512" y2="204" stroke-opacity="0.18"/>
-        </g>
-
-        <!-- Nodes -->
-        <g fill="#0F1B3C">
-          <!-- cluster A -->
-          <circle cx="148" cy="88"  r="7"/>
-          <circle cx="72"  cy="144" r="5"/>
-          <circle cx="218" cy="60"  r="6"/>
-          <circle cx="200" cy="148" r="4"/>
-          <circle cx="38"  cy="200" r="3"/>
-          <circle cx="132" cy="196" r="5"/>
-          <circle cx="280" cy="96"  r="6"/>
-          <circle cx="264" cy="196" r="4"/>
-          <!-- cluster B -->
-          <circle cx="380" cy="72"  r="5"/>
-          <circle cx="340" cy="144" r="6"/>
-          <circle cx="440" cy="128" r="5"/>
-          <circle cx="460" cy="56"  r="3"/>
-          <circle cx="380" cy="216" r="4"/>
-          <circle cx="340" cy="278" r="3"/>
-          <!-- cluster C / spotlight nodes -->
-          <circle cx="512" cy="204" r="8"/>
-          <circle cx="600" cy="156" r="5"/>
-          <circle cx="688" cy="112" r="7"/>
-          <circle cx="752" cy="60"  r="4"/>
-          <circle cx="762" cy="184" r="3"/>
-          <circle cx="628" cy="76"  r="5"/>
-          <circle cx="592" cy="264" r="4"/>
-        </g>
-      </svg>
     </div>
   </div>
 </div>
@@ -1558,7 +1467,6 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       </div>
       <div class="get-in-actions">
         <button class="btn-lime" onclick="openModal()">Create account</button>
-        <a href="https://app.onrosta.com/join" class="btn-outline-white">I have an invite code</a>
       </div>
     </div>
   </div>
@@ -1620,12 +1528,12 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       </div>
     </div>
     <div class="footer-bottom">
-      ROSTA is invite only. Every member was vouched for.
+      Signup is open. Connections still aren't.
     </div>
   </div>
 </div>
 
-<!-- ── REQUEST AN INVITE MODAL ──────────────────────────────────────────────── -->
+<!-- ── SIGNUP MODAL ─────────────────────────────────────────────────────────── -->
 <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal()" aria-label="Close">
