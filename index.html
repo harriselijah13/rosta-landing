@@ -1033,6 +1033,103 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 @media (max-width: 767px) {
   .download-section { padding: 64px 24px; }
 }
+
+/* ── HERO: 2-COLUMN LAYOUT WITH DEVICE MOCKUP ──────────────────────────────── */
+.hero-inner {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1140px;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 72px;
+  align-items: center;
+}
+.hero-inner .hero-content {
+  text-align: left;
+  padding: 0;
+  max-width: none;
+  position: static;
+}
+.hero-inner .hero-sub {
+  margin-left: 0;
+  margin-right: 0;
+}
+.hero-inner .hero-actions {
+  justify-content: flex-start;
+}
+.hero-device-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+.hero-device-wrap svg {
+  filter: drop-shadow(0 28px 56px rgba(15,27,60,0.32)) drop-shadow(0 4px 14px rgba(15,27,60,0.14));
+}
+
+/* ── PRINCIPLES: FEATURE ROWS WITH DEVICE MOCKUPS ──────────────────────────── */
+.feature-block-device {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+.feature-block-device.reverse { direction: rtl; }
+.feature-block-device.reverse > * { direction: ltr; }
+
+.device-mockup-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.device-mockup-wrap svg {
+  filter: drop-shadow(0 20px 40px rgba(15,27,60,0.13)) drop-shadow(0 4px 10px rgba(15,27,60,0.07));
+  max-width: 100%;
+  height: auto;
+}
+
+/* 4th principle ("Invite only") — concept, not a UI screen */
+.principle-standalone {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 36px 40px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 48px;
+  max-width: 620px;
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    gap: 0;
+  }
+  .hero-inner .hero-content {
+    text-align: center;
+  }
+  .hero-inner .hero-sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-inner .hero-actions {
+    justify-content: center;
+  }
+  .hero-device-wrap { display: none; }
+  .feature-block-device {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    margin-bottom: 56px;
+  }
+  .feature-block-device.reverse { direction: ltr; }
+}
 </style>
 </head>
 <body>
@@ -1062,30 +1159,61 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 <section class="hero" id="home">
   <canvas id="hero-canvas" aria-hidden="true"></canvas>
 
-  <!-- Orbital portrait circles — placeholder silhouettes, replace with real photos after consent -->
-  <div class="hero-orbits" id="hero-orbits" aria-hidden="true">
-    <!-- 10 orbital portraits with placeholder silhouettes -->
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.6)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(200,245,60,0.15)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.45)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(200,245,60,0.1)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.55)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.35)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(200,245,60,0.12)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.5)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(200,245,60,0.08)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-    <div class="orbit-portrait"><div class="orbit-silhouette" style="background:rgba(15,27,60,0.4)"><svg viewBox="0 0 24 24"><path d="M20 21a8 8 0 1 0-16 0M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></div></div>
-  </div>
-
-  <div class="hero-content">
-    <span class="hero-eyebrow">Still who you know.</span>
-    <h1 class="hero-headline">Your real network.</h1>
-    <p class="hero-sub">The professional network for people who actually build things. Warm introductions. Real conversations. No performance.</p>
-    <div class="hero-actions">
-      <button class="btn-lime" onclick="openModal()">Create account</button>
-      <a href="https://app.onrosta.com" class="btn-outline-white">Sign in</a>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <span class="hero-eyebrow">Still who you know.</span>
+      <h1 class="hero-headline">Your real network.</h1>
+      <p class="hero-sub">The professional network for people who actually build things. Warm introductions. Real conversations. No performance.</p>
+      <div class="hero-actions">
+        <button class="btn-lime" onclick="openModal()">Create account</button>
+        <a href="https://app.onrosta.com" class="btn-outline-white">Sign in</a>
+      </div>
+      <p class="hero-beta-note"><span class="beta-pill">Beta</span>ROSTA is a mobile app. Sign up to reserve your spot — you'll get the download link the moment it's live.</p>
     </div>
-    <p class="hero-beta-note"><span class="beta-pill">Beta</span>ROSTA is a mobile app. Sign up to reserve your spot — you'll get the download link the moment it's live.</p>
+
+    <!-- Profile card device mockup — illustrated SVG, not a screenshot -->
+    <div class="hero-device-wrap" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 520" width="260" height="520" role="img" aria-label="ROSTA profile card illustration">
+        <!-- Phone body -->
+        <rect x="4" y="4" width="252" height="512" rx="40" fill="#F5F2EE" stroke="#E5E1DB" stroke-width="1.5"/>
+        <!-- Dynamic island -->
+        <rect x="93" y="14" width="74" height="15" rx="7.5" fill="#0F1B3C"/>
+        <!-- Nav -->
+        <text x="22" y="48" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" fill="#6B7280">← Back</text>
+        <text x="130" y="48" font-family="'Fraunces',serif" font-weight="900" font-size="13" fill="#0F1B3C" text-anchor="middle">Profile</text>
+        <line x1="4" y1="58" x2="256" y2="58" stroke="#E5E1DB" stroke-width="1"/>
+        <!-- Avatar -->
+        <circle cx="130" cy="108" r="34" fill="#0F1B3C"/>
+        <text x="130" y="115" font-family="'Fraunces',serif" font-weight="900" font-size="17" fill="#F5F2EE" text-anchor="middle">AM</text>
+        <!-- Name & role -->
+        <text x="130" y="163" font-family="'Fraunces',serif" font-weight="900" font-size="20" fill="#0F1B3C" text-anchor="middle" letter-spacing="-0.5">Alex M.</text>
+        <text x="130" y="180" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">Co-founder, Meridian</text>
+        <!-- Divider -->
+        <line x1="22" y1="196" x2="238" y2="196" stroke="#E5E1DB" stroke-width="1"/>
+        <!-- Building now card -->
+        <rect x="18" y="206" width="224" height="68" rx="10" fill="#FFFFFF" stroke="#E5E1DB" stroke-width="1"/>
+        <text x="32" y="225" font-family="'Plus Jakarta Sans',sans-serif" font-size="9" font-weight="700" fill="#6B7280" letter-spacing="1">BUILDING NOW</text>
+        <text x="32" y="245" font-family="'Plus Jakarta Sans',sans-serif" font-size="12.5" fill="#0F1B3C">Edge infrastructure</text>
+        <text x="32" y="262" font-family="'Plus Jakarta Sans',sans-serif" font-size="12.5" fill="#0F1B3C">for fintech at scale.</text>
+        <!-- Looking to meet card -->
+        <rect x="18" y="284" width="224" height="68" rx="10" fill="#FFFFFF" stroke="#E5E1DB" stroke-width="1"/>
+        <text x="32" y="303" font-family="'Plus Jakarta Sans',sans-serif" font-size="9" font-weight="700" fill="#6B7280" letter-spacing="1">LOOKING TO MEET</text>
+        <text x="32" y="323" font-family="'Plus Jakarta Sans',sans-serif" font-size="12.5" fill="#0F1B3C">Climate operators</text>
+        <text x="32" y="340" font-family="'Plus Jakarta Sans',sans-serif" font-size="12.5" fill="#0F1B3C">and engineers.</text>
+        <!-- Open Door row -->
+        <rect x="18" y="362" width="224" height="48" rx="10" fill="#0F1B3C"/>
+        <circle cx="40" cy="386" r="6.5" fill="#C8F53C"/>
+        <text x="56" y="390" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="600" fill="#F5F2EE">Open Door</text>
+        <!-- Toggle (on state) -->
+        <rect x="188" y="376" width="36" height="20" rx="10" fill="#C8F53C"/>
+        <circle cx="213" cy="386" r="7.5" fill="#FFFFFF"/>
+        <!-- CTA button -->
+        <rect x="18" y="422" width="224" height="44" rx="22" fill="#0F1B3C"/>
+        <text x="130" y="448" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="600" fill="#F5F2EE" text-anchor="middle">Get Introduced</text>
+        <!-- Home indicator -->
+        <rect x="106" y="496" width="48" height="4" rx="2" fill="#0F1B3C" fill-opacity="0.2"/>
+      </svg>
+    </div>
   </div>
 </section>
 
@@ -1111,24 +1239,152 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       <h2 class="section-headline reveal">Built around<br>real relationships.</h2>
     </div>
 
-    <div class="principles-grid">
-      <div class="principle-card reveal">
-        <div class="principle-num"></div>
-        <h3 class="principle-title">No feed. Ever.</h3>
-        <p class="principle-body">There's no public scroll. No algorithmic ranking. No content to perform for. Just what's actually happening with the people you know.</p>
+    <!-- Row 1: Intro flow LEFT — "Warm introductions only" RIGHT -->
+    <div class="feature-block-device reveal">
+      <div class="device-mockup-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 480" width="240" height="480" role="img" aria-label="ROSTA warm introduction flow illustration">
+          <!-- Phone body -->
+          <rect x="4" y="4" width="232" height="472" rx="38" fill="#F5F2EE" stroke="#E5E1DB" stroke-width="1.5"/>
+          <!-- Dynamic island -->
+          <rect x="82" y="13" width="76" height="14" rx="7" fill="#0F1B3C"/>
+          <!-- Nav -->
+          <text x="20" y="46" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" fill="#6B7280">← Intros</text>
+          <text x="120" y="46" font-family="'Fraunces',serif" font-weight="900" font-size="13" fill="#0F1B3C" text-anchor="middle">Introductions</text>
+          <line x1="4" y1="56" x2="236" y2="56" stroke="#E5E1DB" stroke-width="1"/>
+          <!-- Header -->
+          <text x="20" y="82" font-family="'Fraunces',serif" font-weight="900" font-size="17" fill="#0F1B3C">New introduction</text>
+          <!-- Context card -->
+          <rect x="14" y="92" width="212" height="72" rx="10" fill="#FFFFFF" stroke="#E5E1DB" stroke-width="1"/>
+          <text x="26" y="112" font-family="'Plus Jakarta Sans',sans-serif" font-size="9" font-weight="700" fill="#6B7280" letter-spacing="1">FROM BEN HASSAN</text>
+          <text x="26" y="132" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#0F1B3C">He wants to introduce</text>
+          <text x="26" y="150" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#0F1B3C">you to Sarah Lin.</text>
+          <!-- Ben avatar -->
+          <circle cx="58" cy="202" r="26" fill="#0F1B3C"/>
+          <text x="58" y="208" font-family="'Fraunces',serif" font-weight="900" font-size="13" fill="#F5F2EE" text-anchor="middle">BH</text>
+          <text x="58" y="238" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" fill="#0F1B3C" text-anchor="middle">Ben H.</text>
+          <!-- Arrow -->
+          <text x="120" y="208" font-family="'Plus Jakarta Sans',sans-serif" font-size="20" fill="#6B7280" text-anchor="middle">→</text>
+          <!-- Sarah avatar (lime) -->
+          <circle cx="182" cy="202" r="26" fill="#C8F53C"/>
+          <text x="182" y="208" font-family="'Fraunces',serif" font-weight="900" font-size="13" fill="#0F1B3C" text-anchor="middle">SL</text>
+          <text x="182" y="238" font-family="'Plus Jakarta Sans',sans-serif" font-size="10.5" fill="#0F1B3C" text-anchor="middle">Sarah L.</text>
+          <!-- Shared context note -->
+          <rect x="14" y="256" width="212" height="52" rx="10" fill="#F0EDE8"/>
+          <text x="26" y="276" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#0F1B3C">You both focus on infrastructure</text>
+          <text x="26" y="294" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#0F1B3C">for financial services.</text>
+          <!-- Accept button -->
+          <rect x="14" y="322" width="212" height="44" rx="22" fill="#0F1B3C"/>
+          <text x="120" y="348" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="600" fill="#F5F2EE" text-anchor="middle">Accept introduction</text>
+          <!-- Pass -->
+          <text x="120" y="386" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#6B7280" text-anchor="middle">Not right now</text>
+          <!-- Home indicator -->
+          <rect x="95" y="458" width="50" height="4" rx="2" fill="#0F1B3C" fill-opacity="0.18"/>
+        </svg>
       </div>
-      <div class="principle-card reveal">
+      <div class="feature-text">
         <div class="principle-num"></div>
         <h3 class="principle-title">Warm introductions only.</h3>
         <p class="principle-body">Nobody can cold-connect. Every new relationship comes through a mutual, with context. The way real professional relationships have always worked.</p>
       </div>
-      <div class="principle-card reveal">
+    </div>
+
+    <!-- Row 2: "Present tense" LEFT — Profile card RIGHT -->
+    <div class="feature-block-device reverse reveal">
+      <div class="feature-text">
         <div class="principle-num"></div>
         <h3 class="principle-title">Present tense.</h3>
         <p class="principle-body">Your profile isn't a CV. It's what you're building right now, who you want to meet, and what you need. It changes when you do.</p>
       </div>
-      <div class="principle-card reveal">
+      <div class="device-mockup-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 480" width="240" height="480" role="img" aria-label="ROSTA profile signals illustration">
+          <!-- Phone body -->
+          <rect x="4" y="4" width="232" height="472" rx="38" fill="#F5F2EE" stroke="#E5E1DB" stroke-width="1.5"/>
+          <!-- Dynamic island -->
+          <rect x="82" y="13" width="76" height="14" rx="7" fill="#0F1B3C"/>
+          <!-- Nav -->
+          <text x="20" y="46" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" fill="#6B7280">← Back</text>
+          <text x="120" y="46" font-family="'Fraunces',serif" font-weight="900" font-size="13" fill="#0F1B3C" text-anchor="middle">Profile</text>
+          <line x1="4" y1="56" x2="236" y2="56" stroke="#E5E1DB" stroke-width="1"/>
+          <!-- Avatar -->
+          <circle cx="120" cy="104" r="32" fill="#0F1B3C"/>
+          <text x="120" y="111" font-family="'Fraunces',serif" font-weight="900" font-size="16" fill="#F5F2EE" text-anchor="middle">AM</text>
+          <!-- Name & role -->
+          <text x="120" y="156" font-family="'Fraunces',serif" font-weight="900" font-size="18" fill="#0F1B3C" text-anchor="middle" letter-spacing="-0.4">Alex M.</text>
+          <text x="120" y="172" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#6B7280" text-anchor="middle">Co-founder, Meridian</text>
+          <!-- Divider -->
+          <line x1="20" y1="186" x2="220" y2="186" stroke="#E5E1DB" stroke-width="1"/>
+          <!-- Building now -->
+          <rect x="16" y="196" width="208" height="68" rx="10" fill="#FFFFFF" stroke="#E5E1DB" stroke-width="1"/>
+          <text x="30" y="215" font-family="'Plus Jakarta Sans',sans-serif" font-size="9" font-weight="700" fill="#6B7280" letter-spacing="1">BUILDING NOW</text>
+          <text x="30" y="235" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#0F1B3C">Edge infrastructure</text>
+          <text x="30" y="251" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#0F1B3C">for fintech at scale.</text>
+          <!-- Looking to meet -->
+          <rect x="16" y="274" width="208" height="68" rx="10" fill="#FFFFFF" stroke="#E5E1DB" stroke-width="1"/>
+          <text x="30" y="293" font-family="'Plus Jakarta Sans',sans-serif" font-size="9" font-weight="700" fill="#6B7280" letter-spacing="1">LOOKING TO MEET</text>
+          <text x="30" y="313" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#0F1B3C">Climate operators</text>
+          <text x="30" y="329" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#0F1B3C">and engineers.</text>
+          <!-- Open Door -->
+          <rect x="16" y="352" width="208" height="46" rx="10" fill="#0F1B3C"/>
+          <circle cx="37" cy="375" r="6" fill="#C8F53C"/>
+          <text x="52" y="379" font-family="'Plus Jakarta Sans',sans-serif" font-size="12.5" font-weight="600" fill="#F5F2EE">Open Door</text>
+          <rect x="174" y="365" width="34" height="19" rx="9.5" fill="#C8F53C"/>
+          <circle cx="198" cy="374.5" r="7" fill="#FFFFFF"/>
+          <!-- Home indicator -->
+          <rect x="95" y="458" width="50" height="4" rx="2" fill="#0F1B3C" fill-opacity="0.18"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Row 3: Message thread LEFT — "No feed. Ever." RIGHT -->
+    <div class="feature-block-device reveal">
+      <div class="device-mockup-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 480" width="240" height="480" role="img" aria-label="ROSTA direct message thread illustration">
+          <!-- Phone body -->
+          <rect x="4" y="4" width="232" height="472" rx="38" fill="#F5F2EE" stroke="#E5E1DB" stroke-width="1.5"/>
+          <!-- Dynamic island -->
+          <rect x="82" y="13" width="76" height="14" rx="7" fill="#0F1B3C"/>
+          <!-- Nav: contact avatar + name -->
+          <text x="20" y="45" font-family="'Plus Jakarta Sans',sans-serif" font-size="11" fill="#6B7280">←</text>
+          <circle cx="56" cy="40" r="15" fill="#0F1B3C"/>
+          <text x="56" y="45" font-family="'Fraunces',serif" font-weight="900" font-size="10" fill="#F5F2EE" text-anchor="middle">AM</text>
+          <text x="78" y="44" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="600" fill="#0F1B3C">Alex M.</text>
+          <line x1="4" y1="58" x2="236" y2="58" stroke="#E5E1DB" stroke-width="1"/>
+          <!-- Message 1: received (white, left) -->
+          <rect x="14" y="74" width="154" height="52" rx="14" fill="#FFFFFF" stroke="#E5E1DB" stroke-width="1"/>
+          <text x="28" y="96" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#0F1B3C">Happy to connect on</text>
+          <text x="28" y="113" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#0F1B3C">the compute piece.</text>
+          <!-- Message 2: sent (navy, right) -->
+          <rect x="72" y="140" width="154" height="52" rx="14" fill="#0F1B3C"/>
+          <text x="86" y="162" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#F5F2EE">Great. What's your</text>
+          <text x="86" y="179" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#F5F2EE">timeline like?</text>
+          <!-- Message 3: received -->
+          <rect x="14" y="208" width="154" height="52" rx="14" fill="#FFFFFF" stroke="#E5E1DB" stroke-width="1"/>
+          <text x="28" y="230" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#0F1B3C">Early Q2. Let's find</text>
+          <text x="28" y="247" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#0F1B3C">30 minutes this week.</text>
+          <!-- Message 4: sent short -->
+          <rect x="130" y="276" width="96" height="34" rx="17" fill="#0F1B3C"/>
+          <text x="178" y="298" font-family="'Plus Jakarta Sans',sans-serif" font-size="11.5" fill="#F5F2EE" text-anchor="middle">Let's do it.</text>
+          <!-- Input bar -->
+          <rect x="14" y="328" width="212" height="44" rx="22" fill="#FFFFFF" stroke="#E5E1DB" stroke-width="1"/>
+          <text x="36" y="355" font-family="'Plus Jakarta Sans',sans-serif" font-size="12" fill="#6B7280">Message Alex</text>
+          <!-- Send button -->
+          <circle cx="210" cy="350" r="15" fill="#0F1B3C"/>
+          <path d="M210 358 L210 342 M205 349 L210 342 L215 349" stroke="#F5F2EE" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- Home indicator -->
+          <rect x="95" y="458" width="50" height="4" rx="2" fill="#0F1B3C" fill-opacity="0.18"/>
+        </svg>
+      </div>
+      <div class="feature-text">
         <div class="principle-num"></div>
+        <h3 class="principle-title">No feed. Ever.</h3>
+        <p class="principle-body">There's no public scroll. No algorithmic ranking. No content to perform for. Just what's actually happening with the people you know.</p>
+      </div>
+    </div>
+
+    <!-- Compact card: "Invite only" — social concept, not a UI screen -->
+    <div class="principle-standalone reveal">
+      <div class="principle-num" style="flex-shrink:0; margin-top:6px;"></div>
+      <div>
         <h3 class="principle-title">Invite only.</h3>
         <p class="principle-body">You join through a member. Which means everyone here was vouched for. It's how you keep a network real.</p>
       </div>
