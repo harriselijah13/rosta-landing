@@ -1602,10 +1602,10 @@ document.addEventListener('click', e => {
   if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
     menu.classList.remove('open')
   }
-})
+});
 
 /* ── Hero ambient canvas (starfield dots) ── */
-(function initCanvas() {
+;(function initCanvas() {
   const canvas = document.getElementById('hero-canvas')
   if (!canvas) return
   if (!window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -1653,7 +1653,7 @@ document.addEventListener('click', e => {
 /* Orbit container centering handled by CSS top:50%/left:50% */
 
 /* ── Scroll reveal (IntersectionObserver) ── */
-(function initReveal() {
+;(function initReveal() {
   // Mark body so CSS can set initial hidden state
   document.body.classList.add('js-loaded')
 
