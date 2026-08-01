@@ -1463,7 +1463,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       <span class="eyebrow-italic reveal">How to get in</span>
       <h2 class="section-headline-white reveal">Direct access.</h2>
       <div class="get-in-body reveal">
-        <p>Create your account and secure your spot. ROSTA is a mobile app — it's almost ready, and you'll get the download link the moment it's live. Everyone you meet comes through a real introduction. No cold connects.</p>
+        <p>Create your account. ROSTA is a mobile app — it's almost ready, and you'll get the download link the moment it's live. Everyone you meet comes through a real introduction. No cold connects.</p>
       </div>
       <div class="get-in-actions">
         <button class="btn-lime" onclick="openModal()">Create account</button>
@@ -1482,7 +1482,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 <div class="section-wrap-download">
   <div class="download-section reveal">
     <h2 class="download-headline">The app is almost ready.</h2>
-    <p class="download-sub">We'll send you the download link the moment it's live. Your account is ready and your spot is secured.</p>
+    <p class="download-sub">We'll send you the download link the moment it's live. Your account is ready.</p>
     <div class="app-placeholder-box">
       <p class="app-placeholder-label">Coming soon — download links</p>
       <div class="app-placeholder-slots">
@@ -1507,7 +1507,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       <div class="footer-brand">
         <div class="footer-wordmark">ROSTA<span class="dot">.</span></div>
         <p class="footer-tagline">Your real network.</p>
-        <p class="footer-copy">© 2026 FYNL Studio FC-LLC</p>
+        <p class="footer-copy">© 2026 FYNL Studio FZ-LLC</p>
       </div>
       <div>
         <p class="footer-col-title">Platform</p>
@@ -1584,20 +1584,22 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 /* ── Nav scroll behaviour (dark on hero, light below) ── */
 const mainNav = document.getElementById('main-nav')
 function handleNavScroll() {
-  const heroH = document.querySelector('.hero').offsetHeight
-  mainNav.classList.toggle('nav-dark', window.scrollY < heroH - 80)
+  const hero = document.querySelector('.hero')
+  if (!hero || !mainNav) return
+  mainNav.classList.toggle('nav-dark', window.scrollY < hero.offsetHeight - 80)
 }
 handleNavScroll()
 window.addEventListener('scroll', handleNavScroll, { passive: true })
 
 /* ── Mobile menu ── */
 function toggleMobile() {
-  document.getElementById('mobile-menu').classList.toggle('open')
+  const m = document.getElementById('mobile-menu')
+  if (m) m.classList.toggle('open')
 }
 document.addEventListener('click', e => {
   const menu = document.getElementById('mobile-menu')
-  const btn = document.getElementById('hamburger')
-  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+  const btn  = document.getElementById('hamburger')
+  if (menu && btn && !menu.contains(e.target) && !btn.contains(e.target)) {
     menu.classList.remove('open')
   }
 })
@@ -1606,7 +1608,7 @@ document.addEventListener('click', e => {
 (function initCanvas() {
   const canvas = document.getElementById('hero-canvas')
   if (!canvas) return
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  if (!window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   const ctx = canvas.getContext('2d')
   const dots = []
   const COUNT = 40
@@ -1684,9 +1686,12 @@ function closeModal() {
   document.body.style.overflow = ''
 }
 
-document.getElementById('modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('modal')) closeModal()
-})
+{
+  const overlay = document.getElementById('modal')
+  if (overlay) {
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal() })
+  }
+}
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModal()
 })
