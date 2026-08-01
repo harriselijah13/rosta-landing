@@ -921,6 +921,118 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
   .orbit-portrait { animation: none; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ── COMING SOON / BETA MESSAGING ──────────────────────────────────────────── */
+.hero-beta-note {
+  margin-top: 22px;
+  font-size: 13px;
+  color: rgba(245,242,238,0.52);
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+}
+.beta-pill {
+  display: inline-block;
+  background: rgba(200,245,60,0.14);
+  border: 1px solid rgba(200,245,60,0.28);
+  color: var(--lime);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 100px;
+  margin-right: 9px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+/* App download placeholder section */
+.section-wrap-download {
+  background: var(--warm-white);
+  border-top: 1px solid var(--border);
+}
+.download-section {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 80px 48px;
+  text-align: center;
+}
+.download-headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: clamp(28px, 3.5vw, 40px);
+  letter-spacing: -0.03em;
+  color: var(--navy);
+  line-height: 1.05;
+  margin-bottom: 14px;
+}
+.download-sub {
+  font-size: 16px;
+  color: var(--body-grey);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* Dashed placeholder box — mirrors rosta-app's /coming-soon page */
+.app-placeholder-box {
+  border: 2px dashed var(--border);
+  border-radius: 24px;
+  padding: 36px 32px 32px;
+}
+.app-placeholder-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--navy-40);
+  margin-bottom: 24px;
+}
+.app-placeholder-slots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Replace with <a href="..."><img src="app-store-badge.svg" /></a> */
+.app-badge-slot {
+  width: 160px;
+  height: 56px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--navy-40);
+  font-size: 13px;
+  font-weight: 500;
+}
+.app-badge-slot svg { flex-shrink: 0; }
+
+/* Replace with <img src="qr-code.png" alt="Download ROSTA" /> */
+.app-qr-slot {
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--navy-40);
+  text-align: center;
+  line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+  .download-section { padding: 64px 24px; }
+}
 </style>
 </head>
 <body>
@@ -973,6 +1085,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       <button class="btn-lime" onclick="openModal()">Create account</button>
       <a href="https://app.onrosta.com" class="btn-outline-white">Sign in</a>
     </div>
+    <p class="hero-beta-note"><span class="beta-pill">Beta</span>ROSTA is a mobile app. Sign up to reserve your spot — you'll get the download link the moment it's live.</p>
   </div>
 </section>
 
@@ -1185,12 +1298,39 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
       <span class="eyebrow-italic reveal">How to get in</span>
       <h2 class="section-headline-white reveal">Direct access.</h2>
       <div class="get-in-body reveal">
-        <p>Create your account and build your profile. Everyone you meet here comes through a real introduction — no cold connects, no algorithmic matching.</p>
-        <p>Founding member spots are limited. The first members shape what ROSTA becomes.</p>
+        <p>Create your account and secure your spot. ROSTA is a mobile app — it's almost ready, and you'll get the download link the moment it's live. Everyone you meet comes through a real introduction. No cold connects.</p>
       </div>
       <div class="get-in-actions">
         <button class="btn-lime" onclick="openModal()">Create account</button>
         <a href="https://app.onrosta.com/join" class="btn-outline-white">I have an invite code</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── APP DOWNLOAD PLACEHOLDER ─────────────────────────────────────────────── -->
+<!--
+  TO ACTIVATE: replace .app-badge-slot with:
+    <a href="YOUR_APP_STORE_URL"><img src="images/app-store-badge.svg" alt="Download on the App Store" width="160" height="56"></a>
+  Replace .app-qr-slot with:
+    <img src="images/app-store-qr.png" alt="Scan to download ROSTA" width="96" height="96">
+-->
+<div class="section-wrap-download">
+  <div class="download-section reveal">
+    <h2 class="download-headline">The app is almost ready.</h2>
+    <p class="download-sub">We'll send you the download link the moment it's live. Your account is ready and your spot is secured.</p>
+    <div class="app-placeholder-box">
+      <p class="app-placeholder-label">Coming soon — download links</p>
+      <div class="app-placeholder-slots">
+        <!-- App Store badge — swap this div for a real badge image + link -->
+        <div class="app-badge-slot">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(15,27,60,0.3)">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+          </svg>
+          App Store
+        </div>
+        <!-- QR code — swap this div for a real QR image -->
+        <div class="app-qr-slot">QR<br>code</div>
       </div>
     </div>
   </div>
@@ -1210,7 +1350,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
         <div class="footer-links">
           <a href="#how-different" class="footer-link">About</a>
           <a href="#inside" class="footer-link">How it works</a>
-          <a href="https://app.onrosta.com/members" class="footer-link">Members</a>
+          <a href="https://app.onrosta.com/coming-soon" class="footer-link">Members</a>
           <a href="mailto:hello@onrosta.com" class="footer-link">Contact</a>
         </div>
       </div>
@@ -1240,9 +1380,8 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
 
     <div class="modal-scroll">
       <div class="modal-form-wrap" id="modal-form-wrap">
-        <p class="modal-eyebrow">Founding membership</p>
         <h2 class="modal-title" id="modal-title">Create your account.</h2>
-        <p class="modal-sub">Founding member spots are limited.</p>
+        <p class="modal-sub">ROSTA is a mobile app, currently in beta. Sign up now — your account is ready and you'll get the download link the moment the app goes live.</p>
 
         <form class="modal-form" id="invite-form" onsubmit="handleSubmit(event)">
           <div class="form-field">
@@ -1264,7 +1403,7 @@ nav.nav-dark .nav-hamburger span { background: var(--warm-white); }
           </svg>
         </div>
         <h3 class="success-title">Check your inbox.</h3>
-        <p class="success-body">We sent a confirmation link to your email address. Click it to activate your account and complete your profile.</p>
+        <p class="success-body">We sent a confirmation link to your email. Once confirmed, your account is ready. You'll hear from us the moment the app is live to download.</p>
       </div>
     </div>
 
